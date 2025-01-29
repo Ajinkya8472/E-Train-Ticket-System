@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-Train Ticket System</title>
+    <style>
+        /* Inline CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.jansatta.com/wp-content/uploads/2021/08/vande-bharat.jpg?w=1024'); /* Background image */
+            background-size: cover; /* Make the image cover the entire page */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Fix the background while scrolling */
+            color: black; /* Make text white for better contrast */
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.38); /* Transparent black background */
+            color: black;
+            text-align: center;
+            padding: 1rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: rgb(0, 0, 0); /* Light transparent background */
+            margin: 0;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+        }
+        nav ul li a:hover {
+            background-color:rgba(0, 0, 0, 0.64);
+            color: white;
+            border-radius: 10px; /* Rounded corners */
+        }
+        section {
+            margin: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.41); /* Transparent black background */
+            border-radius: 10px; /* Rounded corners */
+        }
+        form label, form input, form select, form button {
+            display: block;
+            margin: 10px 0;
+            color: black;
+            font size: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.33);
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-Train Ticket Booking System</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#train-booking">Book Ticket</a></li>
+            <li><a href="view_bookings.html">View Bookings</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h2>Welcome to the E-Train Ticket Booking System!</h2>
+        <p>Book your train tickets easily, view available trains, and manage your bookings.</p>
+    </section>
+
+    <section id="train-booking">
+        <h2>Book Your Ticket</h2>
+        <form id="ticket-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required placeholder="Enter your full name">
+            
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" required placeholder="Enter your email address">
+            
+            <label for="train">Select Train:</label>
+            <select id="train" required>
+                <option value="">Select a Train</option>
+                <option value="Pune to Mumbai">Pune to Mumbai</option>
+                <option value="Pune to Bangalore">Pune to Bangalore</option>
+                <option value="Pune to Delhi">Pune to Delhi</option>
+                <option value="Pune to Latur">Pune to Latur</option>
+                <option value="Pune to Sambhajinagar">Pune to Sambhajinagar</option>
+                <option value="Sambhajinagr to Latur">Sambhajinagar to Latur</option>
+                <option value="Mahabaleshwar to Pune">Mahabaleshwar to Pune</option>
+                <option value="Pune to Goa">Pune to Goa</option>
+            </select>
+            
+            <label for="date">Travel Date:</label>
+            <input type="date" id="date" required>
+
+            <label for="seats">Number of Seats:</label>
+            <input type="number" id="seats" min="1" required placeholder="Enter number of seats">
+
+            <button type="button" id="book-ticket">Book Ticket</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 E-Train Ticket System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to save booking data to localStorage
+        function saveBooking(name, email, train, date, seats) {
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            bookings.push({ name, email, train, date, seats });
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+        }
+
+        // Event listener for booking
+        document.getElementById('book-ticket').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const train = document.getElementById('train').value;
+            const date = document.getElementById('date').value;
+            const seats = document.getElementById('seats').value;
+
+            if (name && email && train && date && seats) {
+                saveBooking(name, email, train, date, seats);
+                alert('Ticket booked successfully!');
+                document.getElementById('ticket-form').reset(); // Clear the form
+            } else {
+                alert('Please fill in all the fields.');
+            }
+        });
+    </script>
+</body>
+</html>

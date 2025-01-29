@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://wallpaperaccess.com/full/1457234.jpg'); /* Background image */
+            background-size: cover; /* Make the image cover the entire page */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Fix the background while scrolling */
+            color: white; /* Make text white for better contrast */
+        }
+        header {
+            background-color:rgba(0, 0, 0, 0.39);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color:rgb(0, 0, 0);
+            margin: 0;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+        }
+        nav ul li a:hover {
+            background-color:rgba(220, 224, 228, 0.51);
+            color: white;
+            border-radius: 10px; /* Rounded corners */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px;
+        }
+        table th, table td {
+            border: 2px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        table th {
+            background-color:rgb(0, 0, 0);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>View Bookings</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#train-booking">Book Ticket</a></li>
+            <li><a href="view-bookings.html">View Bookings</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Booking List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Train</th>
+                    <th>Date</th>
+                    <th>Seats</th>
+                </tr>
+            </thead>
+            <tbody id="booking-table">
+                <!-- Bookings will be displayed here -->
+            </tbody>
+        </table>
+    </section>
+
+    <script>
+        // Function to render bookings from localStorage
+        function renderBookings() {
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            const tableBody = document.getElementById('booking-table');
+            tableBody.innerHTML = ''; // Clear the table
+            bookings.forEach((booking, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${booking.name}</td>
+                    <td>${booking.email}</td>
+                    <td>${booking.train}</td>
+                    <td>${booking.date}</td>
+                    <td>${booking.seats}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Render bookings on page load
+        renderBookings();
+    </script>
+</body>
+</html>
